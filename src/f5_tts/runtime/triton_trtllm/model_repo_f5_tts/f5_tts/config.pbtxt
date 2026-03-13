@@ -74,8 +74,14 @@ output [
 ]
 
 instance_group [
-  {
-    count: 1
-    kind: KIND_GPU
-  }
+  { count: 1 kind: KIND_GPU gpus: [0] },
+  { count: 1 kind: KIND_GPU gpus: [1] },
+  { count: 1 kind: KIND_GPU gpus: [2] },
+  { count: 1 kind: KIND_GPU gpus: [3] },
+  { count: 1 kind: KIND_GPU gpus: [4] },
+  { count: 1 kind: KIND_GPU gpus: [5] },
+  { count: 1 kind: KIND_GPU gpus: [6] },
+  { count: 1 kind: KIND_GPU gpus: [7] },
+  { count: 1 kind: KIND_GPU gpus: [8] },
+  { count: 1 kind: KIND_GPU gpus: [9] }
 ]
