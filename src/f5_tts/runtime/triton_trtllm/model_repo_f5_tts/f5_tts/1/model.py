@@ -105,7 +105,9 @@ def list_str_to_idx(
 class TritonPythonModel:
     def initialize(self, args):
         self.use_perf = True
-        self.device = torch.device("cuda")
+        self.device_id = int(args.get("model_instance_device_id", "0"))
+        self.device = torch.device(f"cuda:{self.device_id}")
+        torch.cuda.set_device(self.device)
         self.target_audio_sample_rate = 24000
         self.target_rms = 0.1  # least rms when inference, normalize to if lower
         self.n_fft = 1024
@@ -132,6 +134,7 @@ class TritonPythonModel:
             tllm_model_dir=self.tllm_model_dir,
             model_path=parameters["model_path"],
             vocab_size=self.vocab_size,
+            device_id=self.device_id,
         )
 
         self.vocoder = parameters["vocoder"]

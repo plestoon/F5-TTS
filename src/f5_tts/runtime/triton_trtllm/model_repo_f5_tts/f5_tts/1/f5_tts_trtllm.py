@@ -161,6 +161,7 @@ class F5TTS(object):
         tllm_model_dir: Optional[str] = None,
         model_path: Optional[str] = None,
         vocab_size: Optional[int] = None,
+        device_id: int = 0,
     ):
         self.dtype = config["pretrained_config"]["dtype"]
 
@@ -174,8 +175,7 @@ class F5TTS(object):
             world_size=world_size, rank=rank, cp_size=cp_size, tp_size=tp_size, pp_size=1, gpus_per_node=1
         )
 
-        local_rank = rank % self.mapping.gpus_per_node
-        self.device = torch.device(f"cuda:{local_rank}")
+        self.device = torch.device(f"cuda:{device_id}")
 
         torch.cuda.set_device(self.device)
 
